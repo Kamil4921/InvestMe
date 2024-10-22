@@ -1,0 +1,43 @@
+<div class="table-responsive small">
+    <table class="table table-striped table-sm">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Typ</th>
+                <th scope="col">Nazwa</th>
+                <th scope="col">Ticker</th>
+                <th scope="col">Data Zakupu</th>
+                <th scope="col">Ilość</th>
+                <th scope="col">Cena Zakupu</th>
+                <th scope="col">Bieżąca cena</th>
+                <th scope="col">Zysk/ Strata (Usd)</th>
+                <th scope="col">Zysk/ Strata (%)</th>
+                <th scope="col">Usuń</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let asset of assets$ | async; index as i">
+                <td>{{i+1}}</td>
+                <td>{{asset.type}}</td>
+                <td>{{asset.name}}</td>
+                <td>{{asset.ticker}}</td>
+                <td>{{asset.buyDate}}</td>
+                <td>{{asset.amount}}</td>
+                <td>{{ asset.price | currency:'USD' }}</td>
+                <td *ngIf="asset.type === 'Krypto'">{{ (btc$ | async)?.weightedAvgPrice | currency:'USD' }}</td>
+                <td *ngIf="asset.type !== 'Krypto'">{{ asset.currentPrice | currency:'USD' }}</td>
+
+                <td *ngIf="asset.type === 'Krypto'">{{ ((btc$ | async)!.weightedAvgPrice - asset.price) | currency:'USD' }}</td>
+                <td *ngIf="asset.type !== 'Krypto'">{{ (asset.currentPrice - asset.price) | currency:'USD' }}</td>
+
+                <td *ngIf="asset.type === 'Krypto'">{{ ((btc$ | async)!.weightedAvgPrice / asset.price) * 100 | percent }}</td>
+                <td *ngIf="asset.type !== 'Krypto'">{{ (asset.currentPrice / asset.price) * 100 | currency:'USD' }}</td>
+
+                <td>
+                    <button type="button" class="btn-close" (click)="Remove(asset)" aria-label="Close"></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="btn btn-success" (click)="openDialog()">Dodaj</button>
+</div>

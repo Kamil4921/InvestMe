@@ -1,0 +1,32 @@
+<div class="table-responsive small">
+    <table class="table table-striped table-sm">
+        <thead>
+            <tr>
+                <th scope="col">Nazwa</th>
+                <th scope="col">Ticker</th>
+                <th scope="col">Kraj</th>
+                <th scope="col">Giełda</th>
+                <th scope="col">Waluta</th>
+                <th scope="col">Usuń</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let stock of (stocks$ | async)">
+                <td>{{stock.name}}</td>
+                <td>{{stock.symbol}}</td>
+                <td>{{stock.country}}</td>
+                <td>{{stock.exchange}}</td>
+                <td>{{stock.currency}}</td>
+                <td><button type="button" class="btn-close" (click)="Remove(stock)"  aria-label="Close"></button> </td>
+            </tr>
+            <tr *ngFor="let etf of (etfs$ | async)">
+                <td>{{etf.name}}</td>
+                <td>{{etf.symbol}}</td>
+                <td>{{etf.country}}</td>
+                <td>{{etf.exchange}}</td>
+                <td>{{etf.currency}}</td>
+                <td><button type="button" class="btn-close" (click)="Remove(etf)" aria-label="Close"></button> </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,40 @@
+name: Docker-CI
+
+trigger:
+  branches:
+    include:
+      - master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  ImageName: '$(DOCKER_NAME)/investme:$(Build.BuildId)'
+
+stages:
+- stage: Build
+  displayName: Build image
+  jobs:
+  - job: DockerImage
+    displayName: Build and push Docker image
+    steps:
+    - task: Docker@1
+      displayName: Build an image
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'Docker Hub'
+        command: 'Build an image'
+        dockerfile: '**/Dockerfile'
+        imageName: '$(ImageName)'
+        includeLatestTag: false
+        useDefaultContext: false
+        buildContext: '.'
+
+    - task: Docker@1
+      displayName: 'Push image to Dockehub'
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'Docker Hub'
+        command: 'Push an image'
+        imageName: '$(ImageName)'
+      condition: and(succeeded(), ne(variables['Build.Reason'], 'Pull Request'))

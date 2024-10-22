@@ -1,0 +1,16 @@
+<div class="crypto">
+  <h4>Lista Krypto</h4>
+  <mat-form-field>
+    <mat-label>Wybierz Kryptowalutę</mat-label>
+    <mat-select [(value)]="selectedCrypto" name="crypto" (valueChange)="onCryptoChange($event)">
+      <mat-option *ngFor="let crypto of cryptoList" [value]="crypto.symbol">{{crypto.name !== "" ? crypto.name :
+        crypto.symbol}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div *ngIf="isVisible" class="chart">
+  <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+    [legend]="lineChartLegend" [type]="'line'" [plugins]="lineChartPlugins">
+  </canvas>
+</div>

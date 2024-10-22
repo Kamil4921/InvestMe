@@ -1,0 +1,20 @@
+services:
+  investme:
+    container_name: investmecontainer
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - IMAGE_TAG=${IMAGE_TAG}
+    image: investme:${IMAGE_TAG}
+    ports:
+      - 80:80
+    expose:
+      - 80
+    networks:
+      - internalnet
+
+networks:
+  internalnet:
+    driver: bridge
+

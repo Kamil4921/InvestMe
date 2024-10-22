@@ -1,0 +1,28 @@
+.chart {
+    display: flex;
+    position: absolute;
+    top: 25%;
+    left: 10%;
+    width: 80vw;
+    height: 400px;
+}
+
+.metal {
+    display: grid;
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 5vw;
+}
+
+.mat-mdc-form-field {
+    width: 100%;
+}
+
+@media screen and (max-width: 800px) {
+    .metal, .chart{
+        position: static;
+        width: 100%;
+        left: 0;
+    }
+}

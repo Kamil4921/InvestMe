@@ -1,0 +1,39 @@
+<h2 mat-dialog-title>Dodaj Aktywo</h2>
+<mat-dialog-content background-color="white" class="mat-typography">
+    <mat-form-field>
+        <mat-label>Typ aktywa</mat-label>
+        <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl"
+            [matAutocomplete]="auto" [(ngModel)]="form.type">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            @for (option of filteredOptions$ | async; track option) {
+            <mat-option [value]="option">{{option}}</mat-option>
+            }
+        </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Nazwa aktywa</mat-label>
+        <input matInput [(ngModel)]="form.name">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Ticker</mat-label>
+        <input matInput [(ngModel)]="form.ticker">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Data zakupu</mat-label>
+        <input matInput [max]="maxDate" [matDatepicker]="picker" [(ngModel)]="form.buyDate">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Ilość</mat-label>
+        <input matInput [(ngModel)]="form.amount">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Cena Zakupu</mat-label>
+        <input matInput [(ngModel)]="form.price">
+    </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions class="btn-group">
+    <button type="button" class="btn btn-danger" (click)="onNoClick()">Anuluj</button>
+    <button type="button" class="btn btn-success" (click)="onSaveClick()">Dodaj</button>
+</mat-dialog-actions>

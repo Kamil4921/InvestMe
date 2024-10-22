@@ -1,0 +1,35 @@
+  <div class="exchanges">
+    <h4>Lista Giełd</h4>
+    <mat-form-field>
+      <mat-label>Wybierz Giełdę</mat-label>
+      <mat-select [(value)]="selectedExchange" name="exchange" (valueChange)="onExchangeChange($event)">
+        <mat-option *ngFor="let exchange of (exchangeList$ | async)" [value]="exchange.name">{{exchange.country}},
+          {{exchange.name}}:{{exchange.code}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+
+  <div *ngIf="isEtfVisible" class="etfs">
+    <h4>List Etfów</h4>
+    <mat-form-field>
+      <mat-label>Wybierz Etf</mat-label>
+      <mat-select [(value)]="selectedETF" name="etf" (valueChange)="onEtfChange($event)">
+        <mat-option *ngFor="let etf of (etfList$ | async)" [value]="etf.symbol">{{etf.symbol !== "" ? etf.symbol :
+          etf.name}}, {{etf.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="favourite-container" *ngIf="isVisible">
+    <button mat-fab extended color="primary" (click)="AddToFavourites(selectedETF)">
+      <mat-icon>favorite</mat-icon>
+      Obserwój
+    </button>
+  </div>
+
+<div *ngIf="isVisible" class="chart">
+  <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+    [legend]="lineChartLegend" [type]="'line'" [plugins]="lineChartPlugins">
+  </canvas>
+</div>

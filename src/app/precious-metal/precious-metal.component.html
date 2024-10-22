@@ -1,0 +1,16 @@
+<div class="metal">
+  <h4>Lista Metali</h4>
+  <mat-form-field>
+    <mat-label>Wybierz Metal</mat-label>
+    <mat-select [(value)]="selectedMetal" name="etf" (valueChange)="onMetalChange($event)">
+      <mat-option *ngFor="let metal of metalList" [value]="metal.symbol">{{metal.name !== "" ? metal.name :
+        metal.symbol}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div *ngIf="isVisible" class="chart">
+  <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+    [legend]="lineChartLegend" [type]="'line'" [plugins]="lineChartPlugins">
+  </canvas>
+</div>
